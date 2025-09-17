@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="uistyle.css">
+    <title>Blood Bank System</title>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="./logo.jpg" alt="Blood Bank Logo" class="logo-image">
+            <h1><b>Blood Bank System</b></h1>
+        </div>
+        <nav>
+            <a href="bloodavailtry.html">Blood Availability</a>
+            <a href="donate.html">Donate</a>
+            <a href="frontpage.html" onclick="logout()">Login</a> <!-- Updated login/logout link -->
+        </nav>
+    </header>
+
+    <h1 id="welcomeMessage">Welcome, Guest</h1>
+
+    <main>
+        <section class="title">
+            <h1>Blood Bank System</h1>
+            <p class="tagline">"Your Lifeline to Save Lives"</p>
+        </section>
+
+        <section class="features">
+            <div class="feature" id="blood-availability">
+                <h2>Blood Availability</h2>
+                <p>Check the availability of blood types in our database.</p>
+                <button class="search-button"><a href="bloodavailtry.html">Search Now</a></button>
+            </div>
+            <div class="feature">
+                <h2>About Us</h2>
+                <p>Learn more about our mission and vision in providing safe blood to those in need.</p>
+                <button class="about-button"><a href="aboutusa.html">Read More</a></button>
+            </div>
+            <div class="feature">
+                <h2>Donate</h2>
+                <p>Join our community of lifesavers by becoming a blood donor.</p>
+                <button class="donate-button"><a href="donate.html">Become a Donor</a></button>
+            </div>
+            <div class="feature">
+                <h2>Donation Info</h2>
+                <p>Guidelines and benefits of donating blood.</p>
+                <button class="info-button"><a href="donationinfoa.html">Learn More</a></button>
+            </div>
+        </section>
+
+        <section class="table-image-container">
+            <div class="table-section">
+                <h2>Blood Compatibility Table</h2>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Blood Type</th>
+                            <th>Donate Blood To</th>
+                            <th>Receive Blood From</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>A+</td>
+                            <td>A+, AB+</td>
+                            <td>A+, A-, O+, O-</td>
+                        </tr>
+                        <tr>
+                            <td>O+</td>
+                            <td>O+, A+, B+, AB+</td>
+                            <td>O+, O-</td>
+                        </tr>
+                        <tr>
+                            <td>B+</td>
+                            <td>B+, AB+</td>
+                            <td>B+, B-, O+, O-</td>
+                        </tr>
+                        <tr>
+                            <td>AB+</td>
+                            <td>AB+</td>
+                            <td>Everyone</td>
+                        </tr>
+                        <tr>
+                            <td>A-</td>
+                            <td>A+, A-, AB+, AB-</td>
+                            <td>A-, O-</td>
+                        </tr>
+                        <tr>
+                            <td>O-</td>
+                            <td>Everyone</td>
+                            <td>O-</td>
+                        </tr>
+                        <tr>
+                            <td>B-</td>
+                            <td>B+, B-, AB+, AB-</td>
+                            <td>B-, O-</td>
+                        </tr>
+                        <tr>
+                            <td>AB-</td>
+                            <td>AB+, AB-</td>
+                            <td>AB-, A-, B-, O-</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="image-section">
+                <h2>Be a Donor</h2>
+                <img src="./picture.jpg" alt="Blood Donation Illustration" class="donor-image">
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Blood Bank System. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // On page load
+        window.onload = function() {
+            // Retrieve logged-in username from localStorage
+            const loggedInUser = localStorage.getItem("loggedInUser");
+
+            // Set welcome message based on user login status
+            const welcomeMessage = document.getElementById("welcomeMessage");
+
+            if (loggedInUser && loggedInUser.trim() !== "") {
+                welcomeMessage.textContent = `Welcome, ${loggedInUser}!`; // Display username if logged in
+            } else {
+                welcomeMessage.textContent = "Welcome, Guest"; // Display "Guest" if no user is logged in
+            }
+        };
+
+        // Function to log out the user
+        function logout() {
+            // Clear the user data from localStorage
+            localStorage.removeItem("loggedInUser");
+
+            // Set the welcome message to "Guest"
+            const welcomeMessage = document.getElementById("welcomeMessage");
+            welcomeMessage.textContent = "Welcome, Guest";
+        }
+    </script>
+</body>
+</html>

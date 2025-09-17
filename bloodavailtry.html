@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Donation Availability</title>
+    <style>
+        body {
+            background: url('./loginpic.jpg') no-repeat center center/cover;
+            background-blend-mode: overlay;
+            background-color: rgba(139, 0, 0, 0.5);
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #FFE5E5;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 600px;
+        }
+
+        h2 {
+            color: #B22222;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 26px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #8B0000;
+        }
+
+        select, input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #FF6666;
+            border-radius: 5px;
+            background-color: #FFECEC;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: #FF1A1A;
+            box-shadow: 0 0 5px #FF6666;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            font-size: 18px;
+            color: white;
+            background-color: #CD5C5C;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover {
+            background-color: #FF6347;
+            transform: scale(1.05);
+        }
+
+        .success-message {
+            display: none;
+            font-size: 18px;
+            text-align: center;
+            color: green;
+            margin-top: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #FF6666;
+            padding: 8px;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        th {
+            background-color: #CD5C5C;
+            color: white;
+        }
+
+        td {
+            background-color: #FFECEC;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Blood Donation Availability</h2>
+        <div class="form-group">
+            <label for="place">Select Place:</label>
+            <select id="place" name="place" required>
+                <option value="" disabled selected>Select Place</option>
+                <option value="Mumbai">Mumbai</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Bangalore">Bangalore</option>
+                <option value="Chennai">Chennai</option>
+                <!-- Add more places as needed -->
+            </select>
+        </div>
+        <div class="form-group" id="hospital-group" style="display: none;">
+            <label for="hospital">Select Hospital:</label>
+            <select id="hospital" name="hospital" required>
+                <option value="" disabled selected>Select Hospital</option>
+                <!-- Hospital options will be dynamically populated -->
+            </select>
+        </div>
+
+        <div class="table-container" id="table-section">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Place</th>
+                        <th>Full Name</th>
+                        <th>Blood Group</th>
+                    </tr>
+                </thead>
+                <tbody id="blood-availability-table">
+                    <!-- Rows will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const placeSelect = document.getElementById('place');
+            const hospitalGroup = document.getElementById('hospital-group');
+            const hospitalSelect = document.getElementById('hospital');
+            const tableBody = document.getElementById('blood-availability-table');
+
+            const hospitalData = {
+                'Mumbai': ['Hospital A', 'Hospital B', 'Hospital C'],
+                'Delhi': ['Hospital D', 'Hospital E', 'Hospital F'],
+                'Bangalore': ['Hospital G', 'Hospital H', 'Hospital I'],
+                'Chennai': ['Hospital J', 'Hospital K', 'Hospital L']
+            };
+
+            placeSelect.addEventListener('change', function () {
+                const selectedPlace = placeSelect.value;
+                hospitalSelect.innerHTML = '<option value="" disabled selected>Select Hospital</option>';
+
+                if (hospitalData[selectedPlace]) {
+                    hospitalData[selectedPlace].forEach(hospital => {
+                        const option = document.createElement('option');
+                        option.value = hospital;
+                        option.textContent = hospital;
+                        hospitalSelect.appendChild(option);
+                    });
+                    hospitalGroup.style.display = 'block';
+                } else {
+                    hospitalGroup.style.display = 'none';
+                }
+            });
+
+            const donorData = JSON.parse(localStorage.getItem('donorData')) || [];
+            if (donorData.length > 0) {
+                donorData.forEach(donor => {
+                    const row = `
+                        <tr>
+                            <td>${new Date().toLocaleDateString()}</td>
+                            <td>${donor.place}</td>
+                            <td>${donor.name}</td>
+                            <td>${donor.bloodGroup}</td>
+                        </tr>
+                    `;
+                    tableBody.innerHTML += row;
+                });
+            } else {
+                tableBody.innerHTML = '<tr><td colspan="4">No donor data available.</td></tr>';
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation Info</title>
+    <style>
+        /* General styling */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #ffe6e6, #ffcccc);
+            overflow-x: hidden;
+        }
+        header {
+            background-color: #e63946;
+            color: #fff;
+            text-align: center;
+            padding: 15px 0;
+            font-size: 24px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            letter-spacing: 1.5px;
+            position: relative;
+        }
+
+        /* Animated text effect */
+        header::before {
+            content: "Help Save Lives - Donate Blood";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.5);
+            animation: moveText 6s infinite alternate;
+        }
+
+        /* Keyframes for header text movement */
+        @keyframes moveText {
+            from { top: 30%; opacity: 0.5; }
+            to { top: 50%; opacity: 1; }
+        }
+
+        /* Animated section borders */
+        .content {
+            padding: 20px;
+            animation: fadeIn 1.5s;
+        }
+        .section {
+            background-color: #fff;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            animation: slideUp 1s;
+            transition: transform 0.3s;
+            max-width: 800px;
+            border-top: 5px solid #e63946;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated border effect */
+        .section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #e63946, #ff9999);
+            animation: borderMove 2s infinite linear;
+        }
+
+        /* Keyframes for border animation */
+        @keyframes borderMove {
+            from { left: -100%; }
+            to { left: 100%; }
+        }
+
+        /* Heading and button styling */
+        h2 {
+            margin-top: 0;
+            color: #e63946;
+            animation: textPop 2s;
+            font-size: 28px;
+        }
+
+        /* Hover effect for paragraphs */
+        p {
+            line-height: 1.8;
+            margin-bottom: 15px;
+            color: #333;
+            transition: color 0.3s;
+        }
+        p:hover {
+            color: #e63946;
+        }
+
+        /* Image shadow and hover zoom effect */
+        img {
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            animation: fadeIn 1.5s;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Call-to-action button */
+        .cta-button {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #e63946;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 3px 8px rgba(230, 57, 70, 0.3);
+        }
+        .cta-button:hover {
+            background-color: #c5283e;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(230, 57, 70, 0.5);
+        }
+
+        /* Keyframes for fadeIn, slideUp, textPop animations */
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(30px); } to { transform: translateY(0); } }
+        @keyframes textPop { 0% { letter-spacing: -2px; opacity: 0; } 100% { letter-spacing: 1px; opacity: 1; } }
+    </style>
+</head>
+<body>
+    <header></header>
+
+    <div class="content">
+        <div class="section" id="donation-info">
+            <h2>Donation Info</h2>
+            <img src="./donationinfopic.jpg" alt="Donation Info Image">
+            <p>Donating blood is a powerful way to give back to your community and save lives. Each donation can benefit up to three patients by providing essential components like red cells, platelets, and plasma. Here are some important guidelines and benefits to consider before donating:</p>
+            <ul>
+                <li><strong>Health and Fitness:</strong> Ensure that you are in good health and have had sufficient rest before donating.</li>
+                <li><strong>Eligibility:</strong> You should be between 18-65 years old, weigh at least 50 kg, and meet general health requirements.</li>
+                <li><strong>Preparation:</strong> Drink plenty of water and eat iron-rich foods before your donation.</li>
+                <li><strong>Post-Donation Care:</strong> After donating, take time to rest, stay hydrated, and avoid strenuous activities for the day.</li>
+            </ul>
+            <p>Our blood banks follow rigorous safety protocols, ensuring that all donations occur in a clean, sterile environment. By becoming a donor, you not only provide life-saving support to those in need but also benefit your health by promoting red cell regeneration and reducing your risk of certain health issues.</p>
+            <a href="donate.html" class="cta-button">Become a Donor Today</a>
+        </div>
+    </div>
+</body>
+</html>

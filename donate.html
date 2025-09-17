@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blood Donor Registration</title>
+    <style>
+        body {
+            background: url('./loginpic.jpg') no-repeat center center/cover;
+            background-blend-mode: overlay;
+            background-color: rgba(139, 0, 0, 0.5);
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background-color: #FFE5E5;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            width: 100%;
+            max-width: 450px;
+        }
+
+        h2 {
+            color: #B22222;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 26px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #8B0000;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #FF6666;
+            border-radius: 5px;
+            background-color: #FFECEC;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        input:focus, select:focus {
+            border-color: #FF1A1A;
+            box-shadow: 0 0 5px #FF6666;
+        }
+
+        .submit-btn, .back-btn {
+            width: 100%;
+            padding: 14px;
+            font-size: 18px;
+            color: white;
+            background-color: #CD5C5C;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 10px;
+        }
+
+        .submit-btn:hover, .back-btn:hover {
+            background-color: #FF6347;
+            transform: scale(1.05);
+        }
+
+        .success-message {
+            display: none;
+            font-size: 18px;
+            text-align: center;
+            color: green;
+            margin-top: 15px;
+        }
+
+        .back-btn {
+            background-color: #8B0000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Blood Donor Registration</h2>
+        <form id="registration-form">
+            <div class="form-group">
+                <label for="name">Full Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="place">Place:</label>
+                <select id="place" name="place" required>
+                    <option value="" disabled selected>Select City</option>
+                    <option value="Mumbai">Mumbai</option>
+                    <option value="Delhi">Delhi</option>
+                    <option value="Bangalore">Bangalore</option>
+                    <option value="Chennai">Chennai</option>
+                    <option value="Kolkata">Kolkata</option>
+                    <option value="Hyderabad">Hyderabad</option>
+                    <option value="Pune">Pune</option>
+                    <option value="Ahmedabad">Ahmedabad</option>
+                    <option value="Jaipur">Jaipur</option>
+                    <option value="Lucknow">Lucknow</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="hospital">Hospital:</label>
+                <select id="hospital" name="hospital" required>
+                    <option value="" disabled selected>Select Hospital</option>
+                    <option value="Hospital A">Hospital A</option>
+                    <option value="Hospital B">Hospital B</option>
+                    <option value="Hospital C">Hospital C</option>
+                    <option value="Hospital D">Hospital D</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" required>
+            </div>
+            <div class="form-group">
+                <label for="blood-group">Blood Group:</label>
+                <select id="blood-group" name="blood-group" required>
+                    <option value="" disabled selected>Select Blood Group</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="AB-">AB-</option>
+                </select>
+            </div>
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+        <div class="success-message" id="success-message">Successfully Updated!</div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const form = document.getElementById('registration-form');
+            const successMessage = document.getElementById('success-message');
+
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const newDonor = {
+                    name: document.getElementById('name').value,
+                    place: document.getElementById('place').value,
+                    hospital: document.getElementById('hospital').value,
+                    phone: document.getElementById('phone').value,
+                    email: document.getElementById('email').value,
+                    dob: document.getElementById('dob').value,
+                    bloodGroup: document.getElementById('blood-group').value
+                };
+
+                let donorList = localStorage.getItem('donorData');
+                
+                // Ensure that donorList is an array or initialize it as an array
+                if (donorList) {
+                    try {
+                        donorList = JSON.parse(donorList);
+                        if (!Array.isArray(donorList)) {
+                            donorList = [];
+                        }
+                    } catch (e) {
+                        console.error('Error parsing donorData from localStorage:', e);
+                        donorList = [];
+                    }
+                } else {
+                    donorList = [];
+                }
+
+                donorList.push(newDonor);
+                localStorage.setItem('donorData', JSON.stringify(donorList));
+
+                successMessage.style.display = 'block';
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                    form.reset();
+                    window.location.href = 'bloodavailtry.html';
+                }, 2000);
+            });
+        });
+    </script>
+</body>
+</html>
